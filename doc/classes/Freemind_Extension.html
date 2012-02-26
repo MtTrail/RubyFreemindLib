@@ -1,0 +1,977 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Module: Freemind_Extension</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href=".././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Module</strong></td>
+          <td class="class-name-in-header">Freemind_Extension</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../files/freemind_rb.html">
+                freemind.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <p>
+<a href="Nokogiri.html">Nokogiri</a>用 <a
+href="Freemind.html">Freemind</a>拡張モジュール
+</p>
+
+    </div>
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000028">fme_add_arrowlink</a>&nbsp;&nbsp;
+      <a href="#M000025">fme_add_attribute</a>&nbsp;&nbsp;
+      <a href="#M000021">fme_add_child</a>&nbsp;&nbsp;
+      <a href="#M000023">fme_add_icon</a>&nbsp;&nbsp;
+      <a href="#M000031">fme_add_remind</a>&nbsp;&nbsp;
+      <a href="#M000029">fme_arrowlinks</a>&nbsp;&nbsp;
+      <a href="#M000026">fme_attribute?</a>&nbsp;&nbsp;
+      <a href="#M000011">fme_attributes</a>&nbsp;&nbsp;
+      <a href="#M000010">fme_children</a>&nbsp;&nbsp;
+      <a href="#M000014">fme_delete_xml_attr</a>&nbsp;&nbsp;
+      <a href="#M000033">fme_get_remind</a>&nbsp;&nbsp;
+      <a href="#M000019">fme_get_richcontent</a>&nbsp;&nbsp;
+      <a href="#M000016">fme_get_text</a>&nbsp;&nbsp;
+      <a href="#M000013">fme_get_xml_attr</a>&nbsp;&nbsp;
+      <a href="#M000022">fme_have_child?</a>&nbsp;&nbsp;
+      <a href="#M000024">fme_have_icon?</a>&nbsp;&nbsp;
+      <a href="#M000017">fme_have_text?</a>&nbsp;&nbsp;
+      <a href="#M000027">fme_make_arrow_id</a>&nbsp;&nbsp;
+      <a href="#M000008">fme_make_id</a>&nbsp;&nbsp;
+      <a href="#M000009">fme_node_info</a>&nbsp;&nbsp;
+      <a href="#M000020">fme_remove</a>&nbsp;&nbsp;
+      <a href="#M000018">fme_set_richcontent</a>&nbsp;&nbsp;
+      <a href="#M000015">fme_set_text</a>&nbsp;&nbsp;
+      <a href="#M000012">fme_set_xml_attr</a>&nbsp;&nbsp;
+      <a href="#M000032">fme_stamp_time</a>&nbsp;&nbsp;
+      <a href="#M000007">fme_time_stamp</a>&nbsp;&nbsp;
+      <a href="#M000030">fme_time_stamp_at</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+
+
+
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M000028" class="method-detail">
+        <a name="M000028"></a>
+
+        <div class="method-heading">
+          <a href="#M000028" class="method-signature">
+          <span class="method-name">fme_add_arrowlink</span><span class="method-args">(to_mm,color)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+<a href="Freemind_Extension.html#M000028">fme_add_arrowlink</a>:
+矢印リンクを追加する。
+追加した矢印リンクノードを返す、追加できなければnilを返す。
+色以外の属性はサポートしないので必要なら別途自分で操作して下さい。
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000028-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000028-source">
+<pre>
+     <span class="ruby-comment cmt"># File freemind.rb, line 301</span>
+301:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">fme_add_arrowlink</span>(<span class="ruby-identifier">to_mm</span>,<span class="ruby-identifier">color</span>)
+302:     <span class="ruby-identifier">add_child</span>(<span class="ruby-node">&quot;&lt;arrowlink COLOR='#{color}' DESTINATION='#{to_mm.fme_get_xml_attr('id')}' ENDARROW='Default' ENDINCLINATION='30;0;' ID='#{fme_make_arrow_id}' STARTARROW='None' STARTINCLINATION='30;0;'/&gt;&quot;</span>).<span class="ruby-identifier">first</span>
+303:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000025" class="method-detail">
+        <a name="M000025"></a>
+
+        <div class="method-heading">
+          <a href="#M000025" class="method-signature">
+          <span class="method-name">fme_add_attribute</span><span class="method-args">(name,value)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+<a href="Freemind_Extension.html#M000025">fme_add_attribute</a>:
+属性追加
+追加した属性ノードを返す、追加できなければnilを返す。
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000025-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000025-source">
+<pre>
+     <span class="ruby-comment cmt"># File freemind.rb, line 280</span>
+280:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">fme_add_attribute</span>(<span class="ruby-identifier">name</span>,<span class="ruby-identifier">value</span>)
+281:     <span class="ruby-identifier">add_child</span>(<span class="ruby-node">&quot;&lt;attribute NAME='#{name.to_s.encode('UTF-8')}' VALUE='#{value.to_s.encode('UTF-8')}' /&gt;&quot;</span>).<span class="ruby-identifier">first</span>
+282:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000021" class="method-detail">
+        <a name="M000021"></a>
+
+        <div class="method-heading">
+          <a href="#M000021" class="method-signature">
+          <span class="method-name">fme_add_child</span><span class="method-args">(str)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+<a href="Freemind_Extension.html#M000021">fme_add_child</a>:
+子ノードの追加
+テキストを指定して追加、またはノードオブジェクトを指定して追加する
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000021-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000021-source">
+<pre>
+     <span class="ruby-comment cmt"># File freemind.rb, line 242</span>
+242:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">fme_add_child</span>(<span class="ruby-identifier">str</span>)
+243:     <span class="ruby-identifier">node</span> = <span class="ruby-keyword kw">nil</span>
+244:     <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">str</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">to_s</span> <span class="ruby-operator">==</span> <span class="ruby-value str">'String'</span>
+245:       <span class="ruby-identifier">node</span> = <span class="ruby-identifier">add_child</span>(<span class="ruby-node">&quot;&lt;node #{fme_node_info} TEXT='#{str.encode('UTF-8')}'&gt;&lt;/node&gt;&quot;</span>).<span class="ruby-identifier">first</span>
+246:     <span class="ruby-keyword kw">else</span>
+247:       <span class="ruby-identifier">node</span> = <span class="ruby-identifier">add_child</span>(<span class="ruby-identifier">str</span>).<span class="ruby-identifier">first</span>
+248:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">node</span>[<span class="ruby-value">0</span>] <span class="ruby-operator">==</span> <span class="ruby-value str">'CREATED'</span>
+249:         <span class="ruby-identifier">node</span> = <span class="ruby-identifier">str</span>
+250:       <span class="ruby-keyword kw">else</span>
+251:         <span class="ruby-identifier">node</span> = <span class="ruby-keyword kw">nil</span>
+252:       <span class="ruby-keyword kw">end</span>
+253:     <span class="ruby-keyword kw">end</span>
+254:     <span class="ruby-identifier">node</span>
+255:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000023" class="method-detail">
+        <a name="M000023"></a>
+
+        <div class="method-heading">
+          <a href="#M000023" class="method-signature">
+          <span class="method-name">fme_add_icon</span><span class="method-args">(icon_name)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+<a href="Freemind_Extension.html#M000023">fme_add_icon</a>:
+アイコン追加、アイコン名での追加のみをサポート
+追加したアイコンノードを返す、追加できなければnilを返す。
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000023-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000023-source">
+<pre>
+     <span class="ruby-comment cmt"># File freemind.rb, line 266</span>
+266:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">fme_add_icon</span>(<span class="ruby-identifier">icon_name</span>)
+267:     <span class="ruby-identifier">add_child</span>(<span class="ruby-node">&quot;&lt;icon BUILTIN='#{icon_name.encode('UTF-8')}' /&gt;&quot;</span>).<span class="ruby-identifier">first</span>
+268:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000031" class="method-detail">
+        <a name="M000031"></a>
+
+        <div class="method-heading">
+          <a href="#M000031" class="method-signature">
+          <span class="method-name">fme_add_remind</span><span class="method-args">( time )</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+<a href="Freemind_Extension.html#M000031">fme_add_remind</a>:
+指定された時刻をリマインドに設定する。
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000031-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000031-source">
+<pre>
+     <span class="ruby-comment cmt"># File freemind.rb, line 320</span>
+320:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">fme_add_remind</span>( <span class="ruby-identifier">time</span> )
+321:     <span class="ruby-identifier">done</span> = <span class="ruby-keyword kw">false</span>
+322:     <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">search</span>(<span class="ruby-value str">&quot;./hook[@NAME='plugins/TimeManagementReminder.xml']&quot;</span>).<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">node</span><span class="ruby-operator">|</span>
+323:       <span class="ruby-identifier">node</span>.<span class="ruby-identifier">search</span>(<span class="ruby-value str">&quot;./Parameters&quot;</span>).<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">p</span><span class="ruby-operator">|</span>
+324:         <span class="ruby-identifier">p</span>.<span class="ruby-identifier">fme_set_xml_attr</span>(<span class="ruby-value str">'REMINDUSERAT'</span>,<span class="ruby-identifier">fme_time_stamp_at</span>(<span class="ruby-identifier">time</span>))
+325:       <span class="ruby-keyword kw">end</span>
+326:     <span class="ruby-keyword kw">end</span>
+327:     <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">done</span>
+328:       <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">add_child</span>(<span class="ruby-node">&quot;&lt;hook NAME='plugins/TimeManagementReminder.xml'&gt;
+329: &lt;Parameters REMINDUSERAT='#{fme_time_stamp_at(time)}' /&gt;
+330: &lt;/hook&gt;&quot;</span>)
+331:     <span class="ruby-keyword kw">end</span>
+332:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000029" class="method-detail">
+        <a name="M000029"></a>
+
+        <div class="method-heading">
+          <a href="#M000029" class="method-signature">
+          <span class="method-name">fme_arrowlinks</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+<a href="Freemind_Extension.html#M000029">fme_arrowlinks</a>:
+矢印を取り出す。
+矢印リンクノードの配列を返す。無ければサイズ0の配列となる。
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000029-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000029-source">
+<pre>
+     <span class="ruby-comment cmt"># File freemind.rb, line 308</span>
+308:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">fme_arrowlinks</span>
+309:     <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">search</span>(<span class="ruby-value str">&quot;./arrowlink&quot;</span>)
+310:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000026" class="method-detail">
+        <a name="M000026"></a>
+
+        <div class="method-heading">
+          <a href="#M000026" class="method-signature">
+          <span class="method-name">fme_attribute?</span><span class="method-args">(name)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+<a href="Freemind_Extension.html#M000026">fme_attribute?</a>:
+指定した属性を取り出す。
+同じ名前の物が複数存在可能なので取り出した値は配列で返す
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000026-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000026-source">
+<pre>
+     <span class="ruby-comment cmt"># File freemind.rb, line 287</span>
+287:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">fme_attribute?</span>(<span class="ruby-identifier">name</span>)
+288:     <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">search</span>(<span class="ruby-node">&quot;./attribute[@NAME='#{name}']&quot;</span>).<span class="ruby-identifier">map</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span> <span class="ruby-identifier">x</span>.<span class="ruby-identifier">fme_get_xml_attr</span>(<span class="ruby-value str">'VALUE'</span>)}
+289:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000011" class="method-detail">
+        <a name="M000011"></a>
+
+        <div class="method-heading">
+          <a href="#M000011" class="method-signature">
+          <span class="method-name">fme_attributes</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <pre>
+ fme_attributes: 属性を取り出す
+ 戻り値はNokogiriオブジェクトを含む配列の配列のハッシュ
+ 属性nodeを含む配列は種別ごとに出現順となる
+</pre>
+<ul>
+<li>ret[:arrowlink] = [[node,接続先ID,色], &#8230;]
+
+</li>
+<li>ret[:attribute] = [[node,名前,値], &#8230;]
+
+</li>
+<li>ret[:icon] = [[node,icon名], &#8230;]
+
+</li>
+<li>ret[その他] = [[node], &#8230;]
+
+</li>
+</ul>
+<pre>
+ マインドマップの子ノードとノート部分は無視する。
+ またXMLとして評価しているので改行が余計なtextノードとして出てくるのも無視する。
+</pre>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000011-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000011-source">
+<pre>
+     <span class="ruby-comment cmt"># File freemind.rb, line 138</span>
+138:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">fme_attributes</span>
+139:     <span class="ruby-identifier">cn</span> = {}
+140:     [<span class="ruby-value str">'arrowlink'</span>,<span class="ruby-value str">'attribute'</span>,<span class="ruby-value str">'hook'</span>,<span class="ruby-value str">'icon'</span>].<span class="ruby-identifier">each</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span> <span class="ruby-identifier">cn</span>[<span class="ruby-identifier">x</span>] = []}
+141:     
+142:     <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">children</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">node</span><span class="ruby-operator">|</span>
+143:       <span class="ruby-identifier">name</span> = <span class="ruby-identifier">node</span>.<span class="ruby-identifier">name</span>.<span class="ruby-identifier">downcase</span>
+144:       <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">name</span>
+145:       <span class="ruby-keyword kw">when</span> <span class="ruby-value str">'node'</span>,<span class="ruby-value str">'richcontent'</span>,<span class="ruby-value str">'text'</span>
+146:         <span class="ruby-keyword kw">next</span>
+147:       <span class="ruby-keyword kw">when</span> <span class="ruby-value str">'arrowlink'</span>
+148:         <span class="ruby-identifier">cn</span>[<span class="ruby-value str">'arrowlink'</span>] <span class="ruby-operator">&lt;&lt;</span> [<span class="ruby-identifier">node</span>,<span class="ruby-identifier">node</span>.<span class="ruby-identifier">fme_get_xml_attr</span>(<span class="ruby-value str">'destination'</span>),<span class="ruby-identifier">node</span>.<span class="ruby-identifier">fme_get_xml_attr</span>(<span class="ruby-value str">'color'</span>)]
+149:       <span class="ruby-keyword kw">when</span> <span class="ruby-value str">'attribute'</span>
+150:         <span class="ruby-identifier">cn</span>[<span class="ruby-value str">'attribute'</span>] <span class="ruby-operator">&lt;&lt;</span> [<span class="ruby-identifier">node</span>,<span class="ruby-identifier">node</span>.<span class="ruby-identifier">fme_get_xml_attr</span>(<span class="ruby-value str">'name'</span>),<span class="ruby-identifier">node</span>.<span class="ruby-identifier">fme_get_xml_attr</span>(<span class="ruby-value str">'value'</span>)]
+151:       <span class="ruby-keyword kw">when</span> <span class="ruby-value str">'hook'</span>
+152:         <span class="ruby-identifier">cn</span>[<span class="ruby-value str">'hook'</span>] <span class="ruby-operator">&lt;&lt;</span> [<span class="ruby-identifier">node</span>,<span class="ruby-identifier">node</span>.<span class="ruby-identifier">fme_get_xml_attr</span>(<span class="ruby-value str">'name'</span>)]
+153:       <span class="ruby-keyword kw">when</span> <span class="ruby-value str">'icon'</span>
+154:         <span class="ruby-identifier">cn</span>[<span class="ruby-value str">'icon'</span>] <span class="ruby-operator">&lt;&lt;</span> [<span class="ruby-identifier">node</span>,<span class="ruby-identifier">node</span>.<span class="ruby-identifier">fme_get_xml_attr</span>(<span class="ruby-value str">'builtin'</span>)]
+155:       <span class="ruby-keyword kw">else</span>
+156:         <span class="ruby-identifier">cn</span>[<span class="ruby-identifier">name</span>]=[] <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">cn</span>.<span class="ruby-identifier">key?</span>(<span class="ruby-identifier">name</span>)
+157:         <span class="ruby-identifier">cn</span>[<span class="ruby-identifier">name</span>] <span class="ruby-operator">&lt;&lt;</span> [<span class="ruby-identifier">node</span>]
+158:       <span class="ruby-keyword kw">end</span>
+159:     <span class="ruby-keyword kw">end</span>
+160:     <span class="ruby-identifier">cn</span>
+161:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000010" class="method-detail">
+        <a name="M000010"></a>
+
+        <div class="method-heading">
+          <a href="#M000010" class="method-signature">
+          <span class="method-name">fme_children</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+<a href="Freemind_Extension.html#M000010">fme_children</a>:
+子ノードを取り出す
+戻り値は子ノートオブジェクトの配列
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000010-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000010-source">
+<pre>
+     <span class="ruby-comment cmt"># File freemind.rb, line 124</span>
+124:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">fme_children</span>
+125:     <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">search</span>(<span class="ruby-value str">&quot;./node&quot;</span>)
+126:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000014" class="method-detail">
+        <a name="M000014"></a>
+
+        <div class="method-heading">
+          <a href="#M000014" class="method-signature">
+          <span class="method-name">fme_delete_xml_attr</span><span class="method-args">(name)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+<a href="Freemind_Extension.html#M000014">fme_delete_xml_attr</a>:
+XMLベースの属性値を削除する。
+大文字小文字の区別がされるため属性名を全て大文字または全て小文字で調べて削除する、混在は無視する。
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000014-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000014-source">
+<pre>
+     <span class="ruby-comment cmt"># File freemind.rb, line 185</span>
+185:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">fme_delete_xml_attr</span>(<span class="ruby-identifier">name</span>)
+186:     <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-identifier">name</span>.<span class="ruby-identifier">upcase</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">self</span>[<span class="ruby-identifier">name</span>.<span class="ruby-identifier">upcase</span>]
+187:     <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-identifier">name</span>.<span class="ruby-identifier">downcase</span>)
+188:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000033" class="method-detail">
+        <a name="M000033"></a>
+
+        <div class="method-heading">
+          <a href="#M000033" class="method-signature">
+          <span class="method-name">fme_get_remind</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+<a href="Freemind_Extension.html#M000033">fme_get_remind</a>:
+リマインドが指定されていれば時刻を返す。
+指定されていなければnilを返す。
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000033-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000033-source">
+<pre>
+     <span class="ruby-comment cmt"># File freemind.rb, line 343</span>
+343:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">fme_get_remind</span>
+344:     <span class="ruby-identifier">t</span> = <span class="ruby-keyword kw">nil</span>
+345:     <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">search</span>(<span class="ruby-value str">&quot;./hook[@NAME='plugins/TimeManagementReminder.xml']/Parameters&quot;</span>).<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">p</span><span class="ruby-operator">|</span>
+346:       <span class="ruby-identifier">t</span> = <span class="ruby-identifier">fme_stamp_time</span>(<span class="ruby-identifier">p</span>.<span class="ruby-identifier">fme_get_xml_attr</span>(<span class="ruby-value str">'REMINDUSERAT'</span>))
+347:     <span class="ruby-keyword kw">end</span>
+348:     <span class="ruby-identifier">t</span>
+349:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000019" class="method-detail">
+        <a name="M000019"></a>
+
+        <div class="method-heading">
+          <a href="#M000019" class="method-signature">
+          <span class="method-name">fme_get_richcontent</span><span class="method-args">(type)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+<a href="Freemind_Extension.html#M000016">fme_get_text</a>:
+nodeのリッチコンテント値を返す
+type1は&#8217;NODE&#8217;または&#8217;NOTE&#8216;
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000019-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000019-source">
+<pre>
+     <span class="ruby-comment cmt"># File freemind.rb, line 225</span>
+225:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">fme_get_richcontent</span>(<span class="ruby-identifier">type</span>)
+226:     <span class="ruby-identifier">html</span> = <span class="ruby-keyword kw">nil</span>
+227:     <span class="ruby-identifier">t</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">search</span>(<span class="ruby-node">&quot;./richcontent[@TYPE='#{type}']&quot;</span>).<span class="ruby-identifier">first</span>
+228:     <span class="ruby-identifier">html</span> = <span class="ruby-identifier">t</span>.<span class="ruby-identifier">inner_html</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">t</span>
+229:     <span class="ruby-identifier">html</span>
+230:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000016" class="method-detail">
+        <a name="M000016"></a>
+
+        <div class="method-heading">
+          <a href="#M000016" class="method-signature">
+          <span class="method-name">fme_get_text</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+<a href="Freemind_Extension.html#M000016">fme_get_text</a>:
+nodeのテキスト値を返す、無ければnilが返される。
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000016-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000016-source">
+<pre>
+     <span class="ruby-comment cmt"># File freemind.rb, line 199</span>
+199:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">fme_get_text</span>
+200:     <span class="ruby-identifier">fme_get_xml_attr</span>(<span class="ruby-value str">'text'</span>)
+201:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000013" class="method-detail">
+        <a name="M000013"></a>
+
+        <div class="method-heading">
+          <a href="#M000013" class="method-signature">
+          <span class="method-name">fme_get_xml_attr</span><span class="method-args">(name)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+<a href="Freemind_Extension.html#M000013">fme_get_xml_attr</a>:
+XMLベースの属性値を返す。
+大文字小文字の区別がされるため属性名を全て大文字または全て小文字で調べて取り出す、混在は無視する。
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000013-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000013-source">
+<pre>
+     <span class="ruby-comment cmt"># File freemind.rb, line 177</span>
+177:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">fme_get_xml_attr</span>(<span class="ruby-identifier">name</span>)
+178:     <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">self</span>[<span class="ruby-identifier">name</span>.<span class="ruby-identifier">upcase</span>] <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">self</span>[<span class="ruby-identifier">name</span>.<span class="ruby-identifier">upcase</span>]
+179:     <span class="ruby-keyword kw">self</span>[<span class="ruby-identifier">name</span>.<span class="ruby-identifier">downcase</span>]
+180:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000022" class="method-detail">
+        <a name="M000022"></a>
+
+        <div class="method-heading">
+          <a href="#M000022" class="method-signature">
+          <span class="method-name">fme_have_child?</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+<a href="Freemind_Extension.html#M000022">fme_have_child?</a>:
+子ノードが有るか検査、無ければnilを返す、有れば先頭の子ノードオブジェクトを返す。
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000022-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000022-source">
+<pre>
+     <span class="ruby-comment cmt"># File freemind.rb, line 259</span>
+259:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">fme_have_child?</span>
+260:     <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">search</span>(<span class="ruby-value str">&quot;./node&quot;</span>).<span class="ruby-identifier">first</span>
+261:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000024" class="method-detail">
+        <a name="M000024"></a>
+
+        <div class="method-heading">
+          <a href="#M000024" class="method-signature">
+          <span class="method-name">fme_have_icon?</span><span class="method-args">(name)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+<a href="Freemind_Extension.html#M000024">fme_have_icon?</a>:
+指定したiconが有るか検査(大文字小文字を別のものとして扱う)
+無ければnilを返す、有れば先頭のiconノードオブジェクトを返す
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000024-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000024-source">
+<pre>
+     <span class="ruby-comment cmt"># File freemind.rb, line 273</span>
+273:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">fme_have_icon?</span>(<span class="ruby-identifier">name</span>)
+274:     <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">search</span>(<span class="ruby-node">&quot;./icon[@BUILTIN='#{name}']&quot;</span>).<span class="ruby-identifier">first</span>
+275:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000017" class="method-detail">
+        <a name="M000017"></a>
+
+        <div class="method-heading">
+          <a href="#M000017" class="method-signature">
+          <span class="method-name">fme_have_text?</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+<a href="Freemind_Extension.html#M000017">fme_have_text?</a>:
+ノードにテキストが有るか検査、無い場合にはNODEタイプのリッチコンテントが有ると思われる。
+無ければnil、有ればtext値が返される。
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000017-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000017-source">
+<pre>
+     <span class="ruby-comment cmt"># File freemind.rb, line 206</span>
+206:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">fme_have_text?</span>
+207:     <span class="ruby-identifier">fme_get_xml_attr</span>(<span class="ruby-value str">'text'</span>)
+208:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000027" class="method-detail">
+        <a name="M000027"></a>
+
+        <div class="method-heading">
+          <a href="#M000027" class="method-signature">
+          <span class="method-name">fme_make_arrow_id</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+<a href="Freemind_Extension.html#M000027">fme_make_arrow_id</a>:
+矢印用のIDを返す
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000027-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000027-source">
+<pre>
+     <span class="ruby-comment cmt"># File freemind.rb, line 293</span>
+293:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">fme_make_arrow_id</span>
+294:     <span class="ruby-value str">'Arrow_'</span><span class="ruby-operator">+</span><span class="ruby-identifier">fme_make_id</span>
+295:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000008" class="method-detail">
+        <a name="M000008"></a>
+
+        <div class="method-heading">
+          <a href="#M000008" class="method-signature">
+          <span class="method-name">fme_make_id</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+<a href="Freemind_Extension.html#M000008">fme_make_id</a>:
+オブジェクトIDを乱数で作成する
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000008-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000008-source">
+<pre>
+     <span class="ruby-comment cmt"># File freemind.rb, line 109</span>
+109:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">fme_make_id</span>
+110:     <span class="ruby-value str">'ID_'</span><span class="ruby-operator">+</span><span class="ruby-identifier">rand</span>(<span class="ruby-value">10000000000</span>).<span class="ruby-identifier">to_s</span>
+111:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000009" class="method-detail">
+        <a name="M000009"></a>
+
+        <div class="method-heading">
+          <a href="#M000009" class="method-signature">
+          <span class="method-name">fme_node_info</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+<a href="Freemind_Extension.html#M000009">fme_node_info</a>:
+ノードの管理情報を返す
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000009-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000009-source">
+<pre>
+     <span class="ruby-comment cmt"># File freemind.rb, line 115</span>
+115:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">fme_node_info</span>
+116:     <span class="ruby-identifier">t</span> = <span class="ruby-identifier">fme_time_stamp</span>
+117:     <span class="ruby-identifier">id</span> = <span class="ruby-identifier">fme_make_id</span>
+118:     <span class="ruby-node">&quot;CREATED='#{t}' ID='#{id}' MODIFIED='#{t}'&quot;</span>
+119:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000020" class="method-detail">
+        <a name="M000020"></a>
+
+        <div class="method-heading">
+          <a href="#M000020" class="method-signature">
+          <span class="method-name">fme_remove</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+<a href="Freemind_Extension.html#M000020">fme_remove</a>:
+要素の削除(node,icon,attribute,etc.)
+注意　ノードタイプのrichcontentの削除時はテキスト値を設定する事
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000020-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000020-source">
+<pre>
+     <span class="ruby-comment cmt"># File freemind.rb, line 235</span>
+235:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">fme_remove</span>
+236:     <span class="ruby-identifier">remove</span>()
+237:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000018" class="method-detail">
+        <a name="M000018"></a>
+
+        <div class="method-heading">
+          <a href="#M000018" class="method-signature">
+          <span class="method-name">fme_set_richcontent</span><span class="method-args">(type,html)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+<a href="Freemind_Extension.html#M000018">fme_set_richcontent</a>:
+nodeのリッチコンテント値を設定する
+type1は&#8217;NODE&#8217;または&#8217;NOTE&#8216;
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000018-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000018-source">
+<pre>
+     <span class="ruby-comment cmt"># File freemind.rb, line 213</span>
+213:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">fme_set_richcontent</span>(<span class="ruby-identifier">type</span>,<span class="ruby-identifier">html</span>)
+214:     <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">search</span>(<span class="ruby-node">&quot;./richcontent[@TYPE='#{type}']&quot;</span>).<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">node</span><span class="ruby-operator">|</span>
+215:       <span class="ruby-identifier">node</span>.<span class="ruby-identifier">remove</span>
+216:     <span class="ruby-keyword kw">end</span>
+217:     
+218:     <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-value str">'TEXT'</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">type</span> <span class="ruby-operator">==</span> <span class="ruby-value str">'NODE'</span>
+219:     <span class="ruby-identifier">add_child</span>(<span class="ruby-node">&quot;&lt;richcontent TYPE='#{type}'&gt;#{html}&lt;/richcontent&gt;&quot;</span>).<span class="ruby-identifier">first</span>
+220:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000015" class="method-detail">
+        <a name="M000015"></a>
+
+        <div class="method-heading">
+          <a href="#M000015" class="method-signature">
+          <span class="method-name">fme_set_text</span><span class="method-args">(str)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+<a href="Freemind_Extension.html#M000015">fme_set_text</a>:
+nodeのテキスト値を設定する
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000015-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000015-source">
+<pre>
+     <span class="ruby-comment cmt"># File freemind.rb, line 193</span>
+193:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">fme_set_text</span>(<span class="ruby-identifier">str</span>)
+194:     <span class="ruby-identifier">fme_set_xml_attr</span>(<span class="ruby-value str">'text'</span>,<span class="ruby-identifier">str</span>)
+195:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000012" class="method-detail">
+        <a name="M000012"></a>
+
+        <div class="method-heading">
+          <a href="#M000012" class="method-signature">
+          <span class="method-name">fme_set_xml_attr</span><span class="method-args">(name,value)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+<a href="Freemind_Extension.html#M000012">fme_set_xml_attr</a>:
+XMLベースの属性値を設定する。
+大文字小文字の区別がされるため属性名を大文字小文字で調べて入れる、混在は無視する。
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000012-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000012-source">
+<pre>
+     <span class="ruby-comment cmt"># File freemind.rb, line 166</span>
+166:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">fme_set_xml_attr</span>(<span class="ruby-identifier">name</span>,<span class="ruby-identifier">value</span>)
+167:     <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">self</span>[<span class="ruby-identifier">name</span>.<span class="ruby-identifier">upcase</span>]
+168:       <span class="ruby-keyword kw">self</span>[<span class="ruby-identifier">name</span>.<span class="ruby-identifier">upcase</span>] = <span class="ruby-identifier">value</span>
+169:     <span class="ruby-keyword kw">else</span>
+170:       <span class="ruby-keyword kw">self</span>[<span class="ruby-identifier">name</span>.<span class="ruby-identifier">downcase</span>] = <span class="ruby-identifier">value</span>
+171:     <span class="ruby-keyword kw">end</span>
+172:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000032" class="method-detail">
+        <a name="M000032"></a>
+
+        <div class="method-heading">
+          <a href="#M000032" class="method-signature">
+          <span class="method-name">fme_stamp_time</span><span class="method-args">(str)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+<a
+href="Freemind_Extension.html#M000032">fme_stamp_time</a>は数値化された文字列の時刻をTimeオブジェクトに変換したものを返す。
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000032-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000032-source">
+<pre>
+     <span class="ruby-comment cmt"># File freemind.rb, line 336</span>
+336:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">fme_stamp_time</span>(<span class="ruby-identifier">str</span>)
+337:     <span class="ruby-constant">Time</span>.<span class="ruby-identifier">at</span>(<span class="ruby-identifier">str</span>[<span class="ruby-value">0</span><span class="ruby-operator">..</span><span class="ruby-value">9</span>].<span class="ruby-identifier">to_i</span>,(<span class="ruby-identifier">str</span>[<span class="ruby-value">10</span><span class="ruby-operator">..</span><span class="ruby-value">12</span>]<span class="ruby-operator">+</span><span class="ruby-value str">'000'</span>).<span class="ruby-identifier">to_i</span>)
+338:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000007" class="method-detail">
+        <a name="M000007"></a>
+
+        <div class="method-heading">
+          <a href="#M000007" class="method-signature">
+          <span class="method-name">fme_time_stamp</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+<a href="Freemind_Extension.html#M000007">fme_time_stamp</a>:
+現在の時刻を秒+msの文字列で返す
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000007-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000007-source">
+<pre>
+     <span class="ruby-comment cmt"># File freemind.rb, line 103</span>
+103:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">fme_time_stamp</span>
+104:     <span class="ruby-identifier">fme_time_stamp_at</span>(<span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>)
+105:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000030" class="method-detail">
+        <a name="M000030"></a>
+
+        <div class="method-heading">
+          <a href="#M000030" class="method-signature">
+          <span class="method-name">fme_time_stamp_at</span><span class="method-args">(time)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+<a href="Freemind_Extension.html#M000030">fme_time_stamp_at</a>:
+指定された時刻をあらわす数値を返す
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000030-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000030-source">
+<pre>
+     <span class="ruby-comment cmt"># File freemind.rb, line 314</span>
+314:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">fme_time_stamp_at</span>(<span class="ruby-identifier">time</span>)
+315:     <span class="ruby-identifier">sprintf</span>(<span class="ruby-value str">&quot;%010d%03d&quot;</span>,<span class="ruby-identifier">time</span>.<span class="ruby-identifier">tv_sec</span>,<span class="ruby-identifier">time</span>.<span class="ruby-identifier">tv_usec</span><span class="ruby-operator">/</span><span class="ruby-value">1000</span>)
+316:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

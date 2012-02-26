@@ -1,0 +1,1 @@
+FreemindはXML形式のファイルなのでRubyだとNokogiriを使えば特に困らないのですが Freemindでのノード、属性、アイコン等がXMLとしての属性と混乱しやすいので Freemind用の拡張をNokogiriに加えたものを作成しました。 
